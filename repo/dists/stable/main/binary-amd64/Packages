@@ -1,0 +1,16 @@
+Package: pwdgen
+Version: 1.0.0-1
+Architecture: amd64
+Maintainer: Zahid Khalilov <Zahid Khalilov <halilzahid@gmail.com>>
+Installed-Size: 116039
+Depends: libasound2t64, libbrotli1, libbsd0, libbz2-1.0, libc6, libexpat1, libfontconfig1, libfreetype6, libgcc-s1, libgif7, libgl1, libglib2.0-0t64, libglvnd0, libglx0, libgraphite2-3, libharfbuzz0b, libjpeg-turbo8, liblcms2-2, libmd0, libpcre2-8-0, libpng16-16t64, libstdc++6, libx11-6, libxau6, libxcb1, libxdmcp6, libxext6, libxi6, libxrender1, libxtst6, xdg-utils, zlib1g
+Provides: pwdgen
+Filename: repo/pool/main/p/pwdgen/pwdgen_1.0.0-1_amd64.deb
+Size: 41108398
+MD5sum: 405ffdd32c6cb659f7dbb984261d9b69
+SHA1: 80fc90d2073e5fe6849a964e0913f2aa7aedf9be
+SHA256: 203531ea539dccccc324a5e0d54bff163863818ad1159fd8600d04a0c93ab1f5
+Section: Utility
+Priority: optional
+Description: Simple Password Generator
+
