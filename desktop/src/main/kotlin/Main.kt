@@ -6,14 +6,16 @@ import androidx.compose.ui.window.rememberWindowState
 import java.awt.Dimension
 
 fun main() = application {
-    val windowState = rememberWindowState(size = DpSize(800.dp, 600.dp))
+    val windowState = rememberWindowState(size = DpSize(600.dp, 700.dp))
 
     Window(
         onCloseRequest = ::exitApplication,
         state = windowState,
         title = "PWDGEN"
     ) {
-        window.minimumSize = Dimension(800, 600)
-        App()
+        window.minimumSize = Dimension(600, 700)
+        PwdgenTheme {
+            App()
+        }
     }
 }
