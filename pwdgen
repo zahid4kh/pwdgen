@@ -48,11 +48,6 @@ show_help() {
 
 show_banner() {
     echo -e "${BLUE}"
-    echo " ____                  _  ____            "
-    echo "|  _ \ __      __ ___ | |/ ___|  ___  ___ "
-    echo "| |_) |\ \ /\ / // _ \| | |  _ / _ \/ _ \\"
-    echo "|  __/  \ V  V /|  __/| | |_| |  __/  __/"
-    echo "|_|      \_/\_/  \___||_|\____|\___|\___| "
     echo -e "${NC}"
     echo -e "${YELLOW}Secure Password Generator v1.0${NC}"
     echo
