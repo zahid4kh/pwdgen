@@ -1,0 +1,216 @@
+#!/bin/bash
+
+# pwdgen - Password Generator
+# Generates a secure password with specified length and character sets
+# Version: 1.0
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+DEFAULT_LENGTH=22
+PASSWORD_LENGTH=$DEFAULT_LENGTH
+LOG_FILE="${HOME}/.pwdgen.log"
+
+log() {
+    local level=$1
+    local message=$2
+    local timestamp=$(date "+%Y-%m-%d %H:%M:%S")
+    echo -e "${timestamp} [${level}] ${message}" >> "${LOG_FILE}"
+}
+
+error_exit() {
+    local message=$1
+    echo -e "${RED}ERROR:${NC} ${message}" >&2
+    log "ERROR" "${message}"
+    exit 1
+}
+
+show_help() {
+    echo -e "${BLUE}pwdgen${NC} - Secure Password Generator"
+    echo
+    echo -e "Usage: pwdgen [OPTIONS]"
+    echo
+    echo -e "Options:"
+    echo -e "  -l, --length NUM    Set password length (default: ${DEFAULT_LENGTH})"
+    echo -e "  -h, --help          Display this help message"
+    echo -e "  -v, --verbose       Enable verbose mode"
+    echo -e "  --no-special        Exclude special characters"
+    echo -e "  --no-numbers        Exclude numbers"
+    echo -e "  --no-lowercase      Exclude lowercase letters"
+    echo -e "  --no-uppercase      Exclude uppercase letters"
+    echo
+    echo -e "Example: pwdgen -l 16 --no-special"
+    exit 0
+}
+
+show_banner() {
+    echo -e "${BLUE}"
+    echo " ____                  _  ____            "
+    echo "|  _ \ __      __ ___ | |/ ___|  ___  ___ "
+    echo "| |_) |\ \ /\ / // _ \| | |  _ / _ \/ _ \\"
+    echo "|  __/  \ V  V /|  __/| | |_| |  __/  __/"
+    echo "|_|      \_/\_/  \___||_|\____|\___|\___| "
+    echo -e "${NC}"
+    echo -e "${YELLOW}Secure Password Generator v1.0${NC}"
+    echo
+}
+
+validate_length() {
+    local length=$1
+    if ! [[ "$length" =~ ^[0-9]+$ ]]; then
+        error_exit "Password length must be a positive number"
+    fi
+    
+    if [ "$length" -lt 8 ]; then
+        echo -e "${YELLOW}WARNING:${NC} Password length less than 8 is not recommended for security" >&2
+        log "WARNING" "Password length less than 8 is not recommended (${length})"
+    fi
+    
+    if [ "$length" -gt 128 ]; then
+        error_exit "Password length too large (max: 128)"
+    fi
+}
+
+generate_password() {
+    local length=$1
+    local use_special=$2
+    local use_numbers=$3
+    local use_lowercase=$4
+    local use_uppercase=$5
+    local verbose=$6
+    
+    local chars=""
+    local special_chars='!@#$%^&*()-_=+[]{};:,.<>?/~'
+    local number_chars='0123456789'
+    local lowercase_chars='abcdefghijklmnopqrstuvwxyz'
+    local uppercase_chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    
+    if [ "$use_special" = false ] && [ "$use_numbers" = false ] && [ "$use_lowercase" = false ] && [ "$use_uppercase" = false ]; then
+        error_exit "Cannot generate password: all character sets are disabled"
+    fi
+    
+    [ "$use_special" = true ] && chars="${chars}${special_chars}"
+    [ "$use_numbers" = true ] && chars="${chars}${number_chars}"
+    [ "$use_lowercase" = true ] && chars="${chars}${lowercase_chars}"
+    [ "$use_uppercase" = true ] && chars="${chars}${uppercase_chars}"
+    
+    if [ "$verbose" = true ]; then
+        echo -e "${BLUE}INFO:${NC} Generating password with length: ${length}"
+        [ "$use_special" = true ] && echo -e "${BLUE}INFO:${NC} Using special characters"
+        [ "$use_numbers" = true ] && echo -e "${BLUE}INFO:${NC} Using numbers"
+        [ "$use_lowercase" = true ] && echo -e "${BLUE}INFO:${NC} Using lowercase letters"
+        [ "$use_uppercase" = true ] && echo -e "${BLUE}INFO:${NC} Using uppercase letters"
+    fi
+    
+    local password=""
+    local chars_length=${#chars}
+    
+    if [ "$chars_length" -eq 0 ]; then
+        error_exit "Character set is empty"
+    fi
+    
+    if [ "$use_special" = true ]; then
+        password="${password}${special_chars:$(( RANDOM % ${#special_chars} )):1}"
+    fi
+    
+    if [ "$use_numbers" = true ]; then
+        password="${password}${number_chars:$(( RANDOM % ${#number_chars} )):1}"
+    fi
+    
+    if [ "$use_lowercase" = true ]; then
+        password="${password}${lowercase_chars:$(( RANDOM % ${#lowercase_chars} )):1}"
+    fi
+    
+    if [ "$use_uppercase" = true ]; then
+        password="${password}${uppercase_chars:$(( RANDOM % ${#uppercase_chars} )):1}"
+    fi
+    
+    while [ ${#password} -lt "$length" ]; do
+        password="${password}${chars:$(( RANDOM % chars_length )):1}"
+    done
+    
+    password=$(echo "$password" | fold -w1 | shuf | tr -d '\n')
+    
+    password="${password:0:$length}"
+    
+    echo "$password"
+}
+
+USE_SPECIAL=true
+USE_NUMBERS=true
+USE_LOWERCASE=true
+USE_UPPERCASE=true
+VERBOSE=false
+
+while [ $# -gt 0 ]; do
+    case "$1" in
+        -l|--length)
+            if [ -n "$2" ] && [ "${2:0:1}" != "-" ]; then
+                PASSWORD_LENGTH=$2
+                shift 2
+            else
+                error_exit "Option --length requires an argument"
+            fi
+            ;;
+        -h|--help)
+            show_help
+            ;;
+        -v|--verbose)
+            VERBOSE=true
+            shift
+            ;;
+        --no-special)
+            USE_SPECIAL=false
+            shift
+            ;;
+        --no-numbers)
+            USE_NUMBERS=false
+            shift
+            ;;
+        --no-lowercase)
+            USE_LOWERCASE=false
+            shift
+            ;;
+        --no-uppercase)
+            USE_UPPERCASE=false
+            shift
+            ;;
+        *)
+            error_exit "Unknown option: $1"
+            ;;
+    esac
+done
+
+validate_length "$PASSWORD_LENGTH"
+
+if [ -t 1 ]; then
+    show_banner
+fi
+
+log "INFO" "Generating password with length: ${PASSWORD_LENGTH}"
+
+PASSWORD=$(generate_password "$PASSWORD_LENGTH" "$USE_SPECIAL" "$USE_NUMBERS" "$USE_LOWERCASE" "$USE_UPPERCASE" "$VERBOSE")
+
+if [ -t 1 ]; then
+    echo -e "${GREEN}Generated Password:${NC} ${PASSWORD}"
+    echo
+    echo -e "${YELLOW}Password copied to clipboard!${NC}"
+
+    if command -v xclip &> /dev/null; then
+        echo -n "$PASSWORD" | xclip -selection clipboard
+    elif command -v pbcopy &> /dev/null; then
+        echo -n "$PASSWORD" | pbcopy
+    else
+        echo -e "${YELLOW}Warning: Could not copy to clipboard (xclip/pbcopy not found)${NC}"
+        log "WARNING" "Could not copy to clipboard (xclip/pbcopy not found)"
+    fi
+else
+    echo "$PASSWORD"
+fi
+
+log "INFO" "Password generated successfully (length: ${PASSWORD_LENGTH})"
+
+exit 0
