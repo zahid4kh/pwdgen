@@ -23,6 +23,16 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.6.3")
 }
 
+tasks.register("generateUpgradeUuid") {
+    group = "help"
+    description = "Generates a unique UUID to be used for the Windows MSI upgradeUuid."
+    doLast {
+        println("--------------------------------------------------")
+        println("Generated Upgrade UUID (must be pasted in the upgradeUuid for windows block only once so the MSI installer recognizes the update and does the uninstall/install):")
+        println(UUID.randomUUID().toString())
+        println("--------------------------------------------------")
+    }
+}
 
 compose.desktop {
     application {
