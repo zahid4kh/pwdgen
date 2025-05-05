@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=pwdgen
+Comment=Simple Password Generator
+Exec=/opt/pwdgen/bin/pwdgen
+Icon=/opt/pwdgen/lib/pwdgen.png
+Terminal=false
+Type=Application
+Categories=Unknown
+MimeType=
