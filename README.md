@@ -76,12 +76,6 @@ pwdgen --help
 ## Example Output
 
 ```
- ____                  _  ____            
-|  _ \ __      __ ___ | |/ ___|  ___  ___ 
-| |_) |\ \ /\ / // _ \| | |  _ / _ \/ _ \
-|  __/  \ V  V /|  __/| | |_| |  __/  __/
-|_|      \_/\_/  \___||_|\____|\___|\___| 
-
 Secure Password Generator v1.0
 
 Generated Password: QWr]oHs/%D;%PO~o2Trb6j
