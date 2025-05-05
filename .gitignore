@@ -1,0 +1,11 @@
+.idea
+/venv
+/out
+/docs/node_modules
+/desktop/.run
+/desktop/.idea
+/desktop/.kotlin
+/desktop/gradle
+/desktop/.gradle
+/desktop/build
+dsktp.txt
