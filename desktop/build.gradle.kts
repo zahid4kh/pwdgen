@@ -1,4 +1,6 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import java.time.Year
+import java.util.UUID
 
 plugins {
     kotlin("jvm")
@@ -41,7 +43,33 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb, TargetFormat.Exe)
             packageName = "pwdgen"
-            packageVersion = "1.0.0"
+            packageVersion = version.toString()
+            description = "Simple Password Generator"
+            licenseFile.set(project.layout.projectDirectory.file("LICENSE.txt"))
+            vendor = "Zahid Khalilov"
+            copyright = "© ${Year.now().value} Zahid Khalilov. All rights reserved"
+
+            val iconsRoot = project.layout.projectDirectory.dir("src/main/resources/icons")
+
+            linux {
+                iconFile.set(iconsRoot.file("linux.png"))
+                debMaintainer = "Zahid Khalilov <halilzahid@gmail.com>"
+                appCategory = "Utility"
+            }
+
+            windows {
+                iconFile.set(iconsRoot.file("windows.ico"))
+                dirChooser = true
+                menu = true
+                shortcut = true
+                upgradeUuid = "16047d3d-e982-442e-aa4b-e4e350bab790"
+            }
+
+            macOS {
+                iconFile.set(iconsRoot.file("macos.icns"))
+                bundleID = "zahid4kh.pwdgen"
+                packageName = "PwdGen"
+            }
         }
     }
 }
