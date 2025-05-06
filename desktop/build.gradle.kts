@@ -36,6 +36,13 @@ tasks.register("generateUpgradeUuid") {
     }
 }
 
+tasks.register("projectDir"){
+    doLast{
+        println("Project dir is: ${project.projectDir}")
+        //returns:  pwdgen/desktop
+    }
+}
+
 compose.desktop {
     application {
         mainClass = "MainKt"
