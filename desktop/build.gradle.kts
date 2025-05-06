@@ -77,7 +77,7 @@ compose.desktop {
             macOS {
                 iconFile.set(iconsRoot.file("macos.icns"))
                 bundleID = "zahid4kh.pwdgen"
-                packageName = "PwdGen"
+                packageName = "pwdgen"
             }
         }
     }
