@@ -1,0 +1,48 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Architectures: amd64
+Codename: stable
+Components: main
+Date: Tue, 06 May 2025 21:16:20 +0200
+Description: Repository for PwdGen - Secure Password Generator
+Label: PwdGen Repository
+Origin: Zahid Khalilov
+Suite: stable
+Version: 1.0.4
+MD5Sum:
+59b4536af3a162abfca567bf2e8c2ac8  main/binary-amd64/Packages
+8624263dd4b1ece6756a112ed3aee83e  main/binary-amd64/Packages.bz2
+6956b890c60390e315ed50cc29e344f7  main/binary-amd64/Packages.gz
+f49bc3f20d355b23455f77d9a6cfd25f  Release
+SHA1:
+3e7358e05d9c49010939d6fa1f9d4f3840b2fba0  main/binary-amd64/Packages
+5050a66065170d4990deea082fc1fe61d7aaa779  main/binary-amd64/Packages.bz2
+c53661e904caca85c321d15adbe0d00e9a38831f  main/binary-amd64/Packages.gz
+3b0597d81c46819af621303f470c23e3af528231  Release
+SHA256:
+34e266daa98aab26e7ae45b07c198489fd5bae4358da906f30618acdc3a09bee  main/binary-amd64/Packages
+e6b03c00140a13cc32d9fe2f2bcffdcad0ceb8f6c78a1006cd9fd88c28c48647  main/binary-amd64/Packages.bz2
+86539cead0f93c5d837cfa66355a73d449c5420bb32d2ca6cc738191a2a0f77f  main/binary-amd64/Packages.gz
+45f9ad08f65830f5a4b543a4d20ed59eef3f6e9b245670bbef4aadf0f56de8e4  Release
+SHA512:
+d214ee7d1920a20031f12b4ff70f9410277299aacf18c2fa75eb30d2fb5cb68e1aff22587fe51c56895dcf3508db6134a48bd0978ffe3fe86f4e1920f23b3160  main/binary-amd64/Packages
+a34b552f7333dd5f1635cb6bf997f03d51752c03abfc9354d2c742262d75d29662161feae1ba15ab3a8b5078e8d6dc9db5a7a0a037edbb63c87d23bb1c9ac27b  main/binary-amd64/Packages.bz2
+7e428f8c2bb28caa247787dd13e366c52904d2e7aab00ad54dbeb551fa60bba54d0bb2d6ac98233cbf179f5dad8a236c3a81eab4ecc6808b4bcc7e77b08e38ee  main/binary-amd64/Packages.gz
+2d2104a4cb34fd5bcad31d1277ba5d045a791ec69f2eac154b60cc027d200762345f47e9d9396a65703609f771e637c654632f958835c6261231301f462e00e4  Release
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEtGmUdbY7KK3vLEaPehrHzLfUklwFAmgaYAQACgkQehrHzLfU
+klzxvBAAshhvXgRnJRKuNkg+4jz/X8dKZ/ylK1vx0ExenGrMrONgcdp8APgp4+Gw
+4UxdSX+/wL6BxJbOtBb0ztdlHJI8DpcNIi87TQ/2a5xNbKDipb+e66i5ttDdHxrh
+k8xplvquSgNSMx+ncRt5R1nEvl3vbiUpihgOkWL0tj8ZUbphfB4jNgVOSTQPPw+O
+CrxNqslXszjANglSRPS4i5zFZ6agXQDwcxrMh7lU8xNjUCW4+uC3VJGoFEbKnnIT
+qRpZ35DlaYZKsRQ6rC3okhIUZpzMPc3oI7BN9ivl3F1TM9X0EsIq1ggWW5WdvXUd
+c+j7AaxvEsZ2y47AJeDVHqvrHrqXQA97wQacvUm38OwZuevmdzuCFJCOTZPFdXIc
+5jiycOjbl2/9d1hvDFfSmT3zjNnqppjf1KhO1I1z9E6t5JyXBDkHgofrm1arJJlC
+3wiP9b+NX2j7yaGc9EilN1RouQMgsgU025KMfSKbL/3D9cUHp7Y5BbCijjMqK30x
+pdWVVZ/CqRJJ+qx7Tsg1YE7sC8KOQys9XJxxpbp60eUroXLZgmqBT/ChCOjBrGt/
+SXoR+chhlvdvxvK4YLQQsneH1rWdSAPxEH26C1FNXZ20tlh1Aec5prjm90EIAzRT
+1ZtLOXubWn0wegCFruNMr2jAJ6+rad1Yu0StdAW50Rk4xTH7u9k=
+=3gmh
+-----END PGP SIGNATURE-----
