@@ -63,7 +63,7 @@ compose.desktop {
                 debMaintainer = "Zahid Khalilov <halilzahid@gmail.com>"
                 appCategory = "Utilities"
                 menuGroup = "Utilities"
-                installationPath = "/opt/pwdgen"
+                installationPath = "/opt/"
                 shortcut = true
             }
 
