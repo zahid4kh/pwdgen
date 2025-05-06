@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=PwdGen
 Comment=Secure Password Generator
-Exec=/opt/pwdgen/bin/pwdgen
+Exec=/opt/pwdgen/pwdgen/bin/pwdgen
 Icon=pwdgen
 Terminal=false
 Type=Application
