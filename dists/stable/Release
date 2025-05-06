@@ -1,29 +1,29 @@
 Architectures: amd64
 Codename: stable
 Components: main
-Date: Tue, 06 May 2025 21:39:22 +0000
+Date: Tue, 06 May 2025 22:03:54 +0000
 Description: Repository for PwdGen - Secure Password Generator
 Label: PwdGen Repository
 Origin: Zahid Khalilov
 Suite: stable
 Version: 1.0.4
 MD5Sum:
- 474e630f81fa0dd0cfcf2b416f3f3b5e             1735 Release
- d41d8cd98f00b204e9800998ecf8427e                0 main/binary-amd64/Packages
- 4059d198768f9f8dc9372dc1c54bc3c3               14 main/binary-amd64/Packages.bz2
- 8fff5c6fe8b524ac79883c475c14d3ad               29 main/binary-amd64/Packages.gz
+ 42e521b2c2da2a3db235778cf5db1277             2007 Release
+ 59b4536af3a162abfca567bf2e8c2ac8              763 main/binary-amd64/Packages
+ 8624263dd4b1ece6756a112ed3aee83e              570 main/binary-amd64/Packages.bz2
+ 163cf68e6510b1aec8810f6640f32f7b              522 main/binary-amd64/Packages.gz
 SHA1:
- cbc5dac0c4963c439c92d6d0ec5fe450f628a332             1735 Release
- da39a3ee5e6b4b0d3255bfef95601890afd80709                0 main/binary-amd64/Packages
- 64a543afbb5f4bf728636bdcbbe7a2ed0804adc2               14 main/binary-amd64/Packages.bz2
- 837186f2464040641123431c61538664102e34a7               29 main/binary-amd64/Packages.gz
+ 2345e4603aee68595f23b655801d7efeee01505f             2007 Release
+ 3e7358e05d9c49010939d6fa1f9d4f3840b2fba0              763 main/binary-amd64/Packages
+ 5050a66065170d4990deea082fc1fe61d7aaa779              570 main/binary-amd64/Packages.bz2
+ 46b99f12d5800db7d8cfb807dc04e6dae3c086bb              522 main/binary-amd64/Packages.gz
 SHA256:
- 6b057facd1e460f639395fcc93659c6867ede417326950776c20f85dc053848d             1735 Release
- e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855                0 main/binary-amd64/Packages
- d3dda84eb03b9738d118eb2be78e246106900493c0ae07819ad60815134a8058               14 main/binary-amd64/Packages.bz2
- d5223d93ceb0ce8f5bdd40e305f2b874aea21ef40033f17c312431203873e0f4               29 main/binary-amd64/Packages.gz
+ 1b0ad5ff5e783ed5732a79e4786474542ccb8939c14dcf80941c43899a77d98d             2007 Release
+ 34e266daa98aab26e7ae45b07c198489fd5bae4358da906f30618acdc3a09bee              763 main/binary-amd64/Packages
+ e6b03c00140a13cc32d9fe2f2bcffdcad0ceb8f6c78a1006cd9fd88c28c48647              570 main/binary-amd64/Packages.bz2
+ 189d6b5042d7ae844cf75656be54464f23a8358c64fc07ab981676c3660b6f75              522 main/binary-amd64/Packages.gz
 SHA512:
- abd029ad41b0fc968b5a8b1eecba1b5e17adc80a85121549d58ae2e9c8358857b64f01d7f234c0fb0fc031e66406acbfc2f1a49da45fa3647b5fb031d9241691             1735 Release
- cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e                0 main/binary-amd64/Packages
- 6de201dfed1d45412509c65deb34690dc2d09c6aafccfe491fd2f440f92842b9c755b61dc7bcdd4cc0c9f18cf46c2b3a1241e99c4c2a33fff5555e7b2f0b6348               14 main/binary-amd64/Packages.bz2
- fdd9391a0d78458edc1ac84f9e1e13d180aee70480b80aab74ec18398157b66fd06a4476aaea4ebfa1bd2406310ecb8ef6186a29eaedf305e29a6eb925348280               29 main/binary-amd64/Packages.gz
+ 112b1194af57ea05279880128217ee1bf5731b2d9cf1fd8c43403139b5d3fbaed9b469157ba93b7e38d641c73bdb4f072448b40414feb4282543aa529a57eded             2007 Release
+ d214ee7d1920a20031f12b4ff70f9410277299aacf18c2fa75eb30d2fb5cb68e1aff22587fe51c56895dcf3508db6134a48bd0978ffe3fe86f4e1920f23b3160              763 main/binary-amd64/Packages
+ a34b552f7333dd5f1635cb6bf997f03d51752c03abfc9354d2c742262d75d29662161feae1ba15ab3a8b5078e8d6dc9db5a7a0a037edbb63c87d23bb1c9ac27b              570 main/binary-amd64/Packages.bz2
+ 661451fefffe3270d6a5adc48fea0ab49f7ce763398ce6ed5307395a6d1f2e3ab8998a7c6135f5ef0e30859a665cb46b5d4c7b04882b0ae7e0f5300d720116f7              522 main/binary-amd64/Packages.gz
