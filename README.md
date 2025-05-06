@@ -11,6 +11,8 @@
 - Logging system that records operations
 - Automatic clipboard integration (requires xclip, pbcopy, or wl-copy)
 
+![screenshot](pics/image.png)
+
 ## Installation Instructions for PwdGen Desktop App
 
 
