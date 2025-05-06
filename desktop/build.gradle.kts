@@ -64,6 +64,7 @@ compose.desktop {
                 appCategory = "Utility"
                 menuGroup = "Utilities"
                 installationPath = "/opt/pwdgen"
+                shortcut = true
             }
 
             windows {
