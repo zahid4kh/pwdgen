@@ -8,9 +8,6 @@ import java.awt.Dimension
 fun main() = application {
     val windowState = rememberWindowState(size = DpSize(600.dp, 700.dp))
 
-    // hopefully this fixes the app name and icon for the dock panel
-    System.setProperty("awt.appName", "pwdgen")
-
     Window(
         onCloseRequest = ::exitApplication,
         state = windowState,
