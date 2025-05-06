@@ -1,0 +1,15 @@
+Package: pwdgen
+Version: 1.0.4
+Section: utils
+Priority: optional
+Architecture: all
+Depends: python3 (>= 3.8), python3-pyqt6 (>= 6.0)
+Maintainer: Zahid Khalilov <halilzahid@gmail.com>
+Description: Secure Password Generator
+ A robust tool for generating secure, random passwords with customizable options.
+ Features:
+  * Generates secure passwords with customizable length
+  * Includes random uppercase letters, lowercase letters, numbers, and special characters
+  * User-friendly interface
+  * Comprehensive error handling and input validation
+
