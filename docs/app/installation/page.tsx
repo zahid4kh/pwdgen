@@ -50,7 +50,13 @@ function CodeBlock({ children, language = "bash" }: { children: string; language
           borderRadius: '0.375rem',
           margin: 0,
           fontSize: '0.875rem',
-          background: 'transparent'
+          background: 'transparent',
+          padding: 0
+        }}
+        codeTagProps={{
+          style: {
+            background: 'transparent'
+          }
         }}
       >
         {children}
