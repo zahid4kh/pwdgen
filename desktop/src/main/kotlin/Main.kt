@@ -14,6 +14,7 @@ fun main() = application {
         title = "PWDGEN"
     ) {
         window.minimumSize = Dimension(600, 700)
+        window.name = "pwdgen"
         PwdgenTheme {
             App()
         }
