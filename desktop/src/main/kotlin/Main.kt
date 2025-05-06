@@ -8,6 +8,8 @@ import java.awt.Dimension
 fun main() = application {
     val windowState = rememberWindowState(size = DpSize(600.dp, 700.dp))
 
+    System.setProperty("awt.appName", "pwdgen")
+
     Window(
         onCloseRequest = ::exitApplication,
         state = windowState,
