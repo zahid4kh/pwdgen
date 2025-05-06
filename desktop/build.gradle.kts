@@ -55,6 +55,8 @@ compose.desktop {
                 iconFile.set(iconsRoot.file("linux.png"))
                 debMaintainer = "Zahid Khalilov <halilzahid@gmail.com>"
                 appCategory = "Utility"
+                menuGroup = "Utilities"
+                installationPath = "/opt/pwdgen"
             }
 
             windows {
