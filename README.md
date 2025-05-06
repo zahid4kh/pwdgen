@@ -1,6 +1,4 @@
-# pwdgen - Secure Password Generator
-
-A robust Bash script for generating secure, random passwords with customizable options.
+# APT Repository Installation
 
 ![pwdgen banner](https://img.shields.io/badge/pwdgen-Secure%20Password%20Generator-blue)
 
@@ -13,75 +11,56 @@ A robust Bash script for generating secure, random passwords with customizable o
 - Logging system that records operations
 - Automatic clipboard integration (requires xclip, pbcopy, or wl-copy)
 
-## Installation
+## Installation Instructions for PwdGen Desktop App
+
+
+The desktop app can be installed directly using APT. Follow these steps:
+
+#### 1. Add the repository GPG key
 
 ```bash
-# Clone the repository
-git clone https://github.com/zahid4kh/pwdgen.git
-
-# Navigate to the directory
-cd pwdgen
-
-# Make the script executable
-chmod +x pwdgen
-
-# Optional: Move to a directory in your PATH
-sudo cp pwdgen /usr/local/bin/
+wget -qO- https://zahid4kh.github.io/pwdgen/repo/KEY.gpg | sudo gpg --dearmor -o /usr/share/keyrings/pwdgen-archive-keyring.gpg
 ```
 
-For clipboard functionality, install one of these utilities:
+#### 2. Add the repository to your sources list
 
 ```bash
-# For Linux X11
-sudo apt install xclip
-
-# For Linux Wayland
-sudo apt install wl-clipboard
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/pwdgen-archive-keyring.gpg] https://zahid4kh.github.io/pwdgen stable main" | sudo tee /etc/apt/sources.list.d/pwdgen.list
 ```
 
-## Usage
-
-Basic usage:
+#### 3. Update the package list and install PwdGen
 
 ```bash
-pwdgen
+sudo apt update
+sudo apt install pwdgen
 ```
 
-With options:
+After installation, you can launch the app from your applications menu or by running `pwdgen` in your terminal.
+
+### Dependencies
+
+This application requires:
+- Python 3.8 or higher
+- PyQt6
+
+These dependencies will be automatically installed when using the APT installation method.
+
+### Uninstalling
+
+To uninstall PwdGen:
 
 ```bash
-# Generate a 16-character password
-pwdgen -l 16
-
-# Generate a password without special characters
-pwdgen --no-special
-
-# Enable verbose output
-pwdgen -v
-
-# Display help information
-pwdgen --help
+sudo apt remove pwdgen
 ```
 
-## Options
+To also remove the repository from your system:
 
-- `-l, --length NUM` - Set password length (default: 22)
-- `-h, --help` - Display help message
-- `-v, --verbose` - Enable verbose mode
-- `--no-special` - Exclude special characters
-- `--no-numbers` - Exclude numbers
-- `--no-lowercase` - Exclude lowercase letters
-- `--no-uppercase` - Exclude uppercase letters
-
-## Example Output
-
+```bash
+sudo rm /etc/apt/sources.list.d/pwdgen.list
+sudo rm /usr/share/keyrings/pwdgen-archive-keyring.gpg
+sudo apt update
 ```
-Secure Password Generator v1.0
 
-Generated Password: QWr]oHs/%D;%PO~o2Trb6j
-
-Password copied to clipboard!
-```
 
 ## License
 
