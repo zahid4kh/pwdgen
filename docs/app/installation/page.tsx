@@ -1,13 +1,20 @@
 "use client"
 
 import Link from "next/link"
-import { Copy, Check } from "lucide-react"
+import { Copy, Check, Terminal, Package } from "lucide-react"
 import { useState } from "react"
 import { useToast } from "@/components/ui/use-toast"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
+import { oneDark, oneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism'
+import { useTheme } from "next-themes"
 
-function CodeBlock({ children }: { children: string }) {
+function CodeBlock({ children, language = "bash" }: { children: string; language?: string }) {
   const { toast } = useToast()
   const [isCopied, setIsCopied] = useState(false)
+  const { theme } = useTheme()
+  const isDark = theme === "dark"
 
   const copyToClipboard = async () => {
     await navigator.clipboard.writeText(children.trim())
@@ -22,7 +29,6 @@ function CodeBlock({ children }: { children: string }) {
       setIsCopied(false)
     }, 2000)
   }
-  
 
   return (
     <div className="bg-zinc-100 dark:bg-zinc-800 p-4 rounded-md overflow-x-auto mb-6 relative group">
@@ -37,9 +43,18 @@ function CodeBlock({ children }: { children: string }) {
           <Copy className="h-4 w-4" />
         )}
       </button>
-      <pre className="overflow-x-auto">
-        <code className="text-sm">{children}</code>
-      </pre>
+      <SyntaxHighlighter
+        language={language}
+        style={isDark ? oneDark : oneLight}
+        customStyle={{
+          borderRadius: '0.375rem',
+          margin: 0,
+          fontSize: '0.875rem',
+          background: 'transparent'
+        }}
+      >
+        {children}
+      </SyntaxHighlighter>
     </div>
   )
 }
@@ -49,66 +64,127 @@ export default function Installation() {
     <div className="container mx-auto px-4 py-12">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-3xl font-bold mb-8 text-zinc-900 dark:text-zinc-100">Installation Guide</h1>
+        
+        <Tabs defaultValue="apt">
+          <TabsList className="mb-6">
+            <TabsTrigger value="apt" className="flex items-center gap-2">
+              <Package className="h-4 w-4" />
+              APT Installation
+            </TabsTrigger>
+            <TabsTrigger value="manual" className="flex items-center gap-2">
+              <Terminal className="h-4 w-4" />
+              Manual Installation
+            </TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="apt" className="space-y-8">
+            <Alert className="bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-900">
+              <AlertTitle className="text-green-800 dark:text-green-300">Recommended Method</AlertTitle>
+              <AlertDescription className="text-green-700 dark:text-green-400">
+                This is the easiest way to install the GUI version of pwdgen on Debian-based Linux systems.
+              </AlertDescription>
+            </Alert>
+            
+            <section className="mb-10">
+              <h2 className="text-2xl font-semibold mb-4 text-zinc-900 dark:text-zinc-100">APT Repository Installation</h2>
+              <p className="mb-4 text-zinc-700 dark:text-zinc-300">
+                The desktop app can be installed directly using APT. Follow these steps:
+              </p>
 
-        <section className="mb-10">
-          <h2 className="text-2xl font-semibold mb-4 text-zinc-900 dark:text-zinc-100">Basic Installation</h2>
-          <p className="mb-4 text-zinc-700 dark:text-zinc-300">Follow these steps to install pwdgen:</p>
+              <h3 className="text-xl font-medium mb-2 text-zinc-800 dark:text-zinc-200">1. Add the repository GPG key</h3>
+              <CodeBlock language="bash">{`wget -qO- https://zahid4kh.github.io/pwdgen/KEY.gpg | sudo gpg --dearmor -o /usr/share/keyrings/pwdgen-archive-keyring.gpg`}</CodeBlock>
 
-          <CodeBlock>{`# Clone the repository
-git clone https://github.com/zahid4kh/pwdgen.git
+              <h3 className="text-xl font-medium mb-2 text-zinc-800 dark:text-zinc-200">2. Add the repository to your sources list</h3>
+              <CodeBlock language="bash">{`echo "deb [arch=amd64 signed-by=/usr/share/keyrings/pwdgen-archive-keyring.gpg] https://zahid4kh.github.io/pwdgen stable main" | sudo tee /etc/apt/sources.list.d/pwdgen.list`}</CodeBlock>
 
-# Navigate to the directory
-cd pwdgen
+              <h3 className="text-xl font-medium mb-2 text-zinc-800 dark:text-zinc-200">3. Update the package list and install PwdGen</h3>
+              <CodeBlock language="bash">{`sudo apt update
+sudo apt install pwdgen`}</CodeBlock>
 
-# Make the script executable
-chmod +x pwdgen
+              <p className="mt-6 text-zinc-700 dark:text-zinc-300">
+                After installation, you can launch the app from your applications menu or by running <code className="bg-zinc-100 dark:bg-zinc-800 px-1 py-0.5 rounded">pwdgen</code> in your terminal.
+              </p>
+            </section>
+            
+            <section className="mb-10">
+              <h2 className="text-2xl font-semibold mb-4 text-zinc-900 dark:text-zinc-100">Uninstalling</h2>
+              <p className="mb-4 text-zinc-700 dark:text-zinc-300">
+                To uninstall the PwdGen application:
+              </p>
+              
+              <CodeBlock>{`# Remove the package
+sudo apt remove pwdgen
 
-# Optional: Move to a directory in your PATH
-sudo cp pwdgen /usr/local/bin/`}</CodeBlock>
-        </section>
+# Optionally, remove the repository and key
+sudo rm /etc/apt/sources.list.d/pwdgen.list
+sudo rm /usr/share/keyrings/pwdgen-archive-keyring.gpg
+sudo apt update`}</CodeBlock>
+            </section>
+          </TabsContent>
+          
+          <TabsContent value="manual" className="space-y-8">
+            <section className="mb-10">
+              <h2 className="text-2xl font-semibold mb-4 text-zinc-900 dark:text-zinc-100">Manual Script Installation</h2>
+              <p className="mb-4 text-zinc-700 dark:text-zinc-300">
+                If you prefer to use the CLI version directly, follow these steps:
+              </p>
 
-        <section className="mb-10">
-          <h2 className="text-2xl font-semibold mb-4 text-zinc-900 dark:text-zinc-100">Clipboard Functionality</h2>
-          <p className="mb-4 text-zinc-700 dark:text-zinc-300">
-            For clipboard functionality, install one of these utilities:
-          </p>
+              <h3 className="text-xl font-medium mb-2 text-zinc-800 dark:text-zinc-200">1. Clone the repository</h3>
+              <CodeBlock>{`git clone https://github.com/zahid4kh/pwdgen.git
+cd pwdgen`}</CodeBlock>
 
-          <CodeBlock>{`# For Linux X11
+              <h3 className="text-xl font-medium mb-2 text-zinc-800 dark:text-zinc-200">2. Make the script executable</h3>
+              <CodeBlock>{`chmod +x pwdgen`}</CodeBlock>
+
+              <h3 className="text-xl font-medium mb-2 text-zinc-800 dark:text-zinc-200">3. Install to your local bin directory</h3>
+              <p className="mb-2 text-zinc-700 dark:text-zinc-300">
+                To run the script from anywhere in your terminal:
+              </p>
+              <CodeBlock>{`# Create the local bin directory if it doesn't exist
+mkdir -p ~/.local/bin
+
+# Copy the script to your local bin directory
+cp pwdgen ~/.local/bin/
+
+# Make sure ~/.local/bin is in your PATH
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc`}</CodeBlock>
+
+              <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded-md p-4 mt-4">
+                <p className="text-blue-700 dark:text-blue-400">
+                  <strong>Note:</strong> Using <code className="bg-zinc-100 dark:bg-zinc-800 px-1 py-0.5 rounded">~/.local/bin</code> is the recommended way to install user-specific scripts without requiring root privileges.
+                </p>
+              </div>
+            </section>
+            
+            <section className="mb-10">
+              <h2 className="text-2xl font-semibold mb-4 text-zinc-900 dark:text-zinc-100">Clipboard Functionality</h2>
+              <p className="mb-4 text-zinc-700 dark:text-zinc-300">
+                For clipboard functionality, install one of these utilities:
+              </p>
+
+              <CodeBlock>{`# For Linux X11
 sudo apt install xclip
 
 # For Linux Wayland
 sudo apt install wl-clipboard`}</CodeBlock>
 
-          <p className="text-zinc-700 dark:text-zinc-300">
-            On macOS, the <code className="bg-zinc-100 dark:bg-zinc-800 px-1 py-0.5 rounded">pbcopy</code> utility is
-            already installed by default.
-          </p>
-        </section>
-
-        <section className="mb-10">
-          <h2 className="text-2xl font-semibold mb-4 text-zinc-900 dark:text-zinc-100">Verifying Installation</h2>
-          <p className="mb-4 text-zinc-700 dark:text-zinc-300">
-            After installation, verify that pwdgen is working correctly:
-          </p>
-
-          <CodeBlock>{`# Run the basic command
-pwdgen
-
-# Check the help information
-pwdgen --help`}</CodeBlock>
-        </section>
-
-        <section className="mb-10">
-          <h2 className="text-2xl font-semibold mb-4 text-zinc-900 dark:text-zinc-100">Troubleshooting</h2>
-          <p className="mb-4 text-zinc-700 dark:text-zinc-300">If you encounter any issues during installation:</p>
-
-          <ul className="list-disc pl-6 space-y-2 text-zinc-700 dark:text-zinc-300">
-            <li>Ensure you have the necessary permissions to execute the script</li>
-            <li>Check that the script is in your PATH if you're trying to run it from any directory</li>
-            <li>For clipboard issues, verify that the appropriate clipboard utility is installed</li>
-            <li>Check the GitHub repository for any reported issues or updates</li>
-          </ul>
-        </section>
+              <p className="text-zinc-700 dark:text-zinc-300">
+                On macOS, the <code className="bg-zinc-100 dark:bg-zinc-800 px-1 py-0.5 rounded">pbcopy</code> utility is already installed by default.
+              </p>
+            </section>
+            
+            <section className="mb-10">
+              <h2 className="text-2xl font-semibold mb-4 text-zinc-900 dark:text-zinc-100">Uninstalling</h2>
+              <p className="mb-4 text-zinc-700 dark:text-zinc-300">
+                To uninstall the script:
+              </p>
+              
+              <CodeBlock>{`# Remove the script from your local bin directory
+rm ~/.local/bin/pwdgen`}</CodeBlock>
+            </section>
+          </TabsContent>
+        </Tabs>
 
         <div className="mt-12 flex justify-center space-x-4">
           <Link
