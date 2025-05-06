@@ -19,7 +19,7 @@ The desktop app can be installed directly using APT. Follow these steps:
 #### 1. Add the repository GPG key
 
 ```bash
-wget -qO- https://zahid4kh.github.io/pwdgen/repo/KEY.gpg | sudo gpg --dearmor -o /usr/share/keyrings/pwdgen-archive-keyring.gpg
+wget -qO- https://zahid4kh.github.io/pwdgen/KEY.gpg | sudo gpg --dearmor -o /usr/share/keyrings/pwdgen-archive-keyring.gpg
 ```
 
 #### 2. Add the repository to your sources list
