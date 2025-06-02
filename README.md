@@ -1,4 +1,4 @@
-# APT Repository Installation
+# PwdGen - Secure Password Generator
 
 ![pwdgen banner](https://img.shields.io/badge/pwdgen-Secure%20Password%20Generator-blue)
 
@@ -13,28 +13,24 @@
 
 ![screenshot](pics/image.png)
 
-## Installation Instructions for PwdGen Desktop App
+## 🚀 Installation
 
+### Linux Installation
 
-The desktop app can be installed directly using APT. Follow these steps:
+**Easy installation via APT repository:**
 
-#### 1. Add the repository GPG key
+📦 **[Install from Zahid's APT Repository](https://github.com/zahid4kh/my-apt-repo)**
 
-```bash
-wget -qO- https://zahid4kh.github.io/pwdgen/KEY.gpg | sudo gpg --dearmor -o /usr/share/keyrings/pwdgen-archive-keyring.gpg
-```
+This is the recommended method for Ubuntu/Debian users as it provides automatic updates and dependency management.
 
-#### 2. Add the repository to your sources list
+### Manual Installation
 
-```bash
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/pwdgen-archive-keyring.gpg] https://zahid4kh.github.io/pwdgen stable main" | sudo tee /etc/apt/sources.list.d/pwdgen.list
-```
-
-#### 3. Update the package list and install PwdGen
+You can also download the `.deb` file directly from the [Releases](https://github.com/zahid4kh/pwdgen/releases) page and install manually:
 
 ```bash
-sudo apt update
-sudo apt install pwdgen
+sudo dpkg -i pwdgen-1.0.4.deb
+
+sudo apt install -f
 ```
 
 After installation, you can launch the app from your applications menu or by running `pwdgen` in your terminal.
@@ -42,6 +38,7 @@ After installation, you can launch the app from your applications menu or by run
 ### Dependencies
 
 This application requires:
+
 - Python 3.8 or higher
 - PyQt6
 
@@ -55,14 +52,7 @@ To uninstall PwdGen:
 sudo apt remove pwdgen
 ```
 
-To also remove the repository from your system:
-
-```bash
-sudo rm /etc/apt/sources.list.d/pwdgen.list
-sudo rm /usr/share/keyrings/pwdgen-archive-keyring.gpg
-sudo apt update
-```
-
+For complete removal including repository configuration, please refer to the [APT Repository documentation](https://zahid4kh.github.io/my-apt-repo/).
 
 ## License
 
@@ -70,4 +60,4 @@ sudo apt update
 
 ## Author
 
-*Zahid Khalilov*
+_Zahid Khalilov_
