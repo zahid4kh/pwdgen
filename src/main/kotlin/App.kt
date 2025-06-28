@@ -1,4 +1,3 @@
-
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.*
@@ -8,12 +7,10 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.WindowState
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
@@ -55,10 +52,10 @@ fun App(
 
     if (resizeClicked){
         windowState.size = windowState.size.copy(width = 820.dp, height = 600.dp)
-        windowState.position = WindowPosition.Aligned(Alignment.Center)
+        //windowState.position = WindowPosition.Aligned(Alignment.Center)
     }else{
         windowState.size = windowState.size.copy(width = 400.dp, height = 570.dp)
-        windowState.position = WindowPosition.Aligned(Alignment.Center)
+        //windowState.position = WindowPosition.Aligned(Alignment.Center)
     }
 
 
