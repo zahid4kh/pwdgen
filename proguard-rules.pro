@@ -41,5 +41,4 @@
 -keep class kotlinx.serialization.descriptors.** { *; }
 
 # Specifically keep AppSettings and its serializer
--keep class AppSettings { *; }
--keep class AppSettings$$serializer { *; }
+-keep class MainScreen { *; }
