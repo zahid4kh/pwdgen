@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=PwdGen
-Comment=Secure Password Generator
-Exec=/usr/bin/pwdgen
-Icon=pwdgen
-Terminal=false
-Type=Application
-Categories=Utility;Security;
-StartupWMClass=pwdgen
