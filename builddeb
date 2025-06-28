@@ -4,6 +4,8 @@ set -e
 
 clear
 
+rm -rf deb-temp
+
 ./gradlew clean
 
 ./gradlew build
