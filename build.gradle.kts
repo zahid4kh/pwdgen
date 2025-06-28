@@ -70,7 +70,7 @@ compose.desktop {
                 dirChooser = true
                 menu = true
                 vendor = "Zahid Khalilov"
-                upgradeUuid = "run the 'generateUpgradeUuid' task and paste the generated UUID here only once"
+                upgradeUuid = "f9dbc660-13b8-46e5-8a74-4189584e0d23"
                 iconFile.set(project.file("icons/windows.ico"))
             }
 
