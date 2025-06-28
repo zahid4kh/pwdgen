@@ -1,3 +1,4 @@
+
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.*
@@ -74,30 +75,48 @@ fun App(
                         )
                     },
                     actions = {
-                        IconButton(
-                            onClick = {viewModel.toggleDarkMode()},
-                            modifier = Modifier.padding(8.dp)
+                        TooltipBox(
+                            positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
+                            tooltip = {
+                                PlainTooltip {
+                                    Text(if(uiState.darkMode) "Go Light" else "Go Dark")
+                                }
+                            },
+                            state = rememberTooltipState()
                         ){
-                            Icon(
-                                painterResource(
-                                    if(uiState.darkMode) Res.drawable.moon else Res.drawable.sun,
-                                ),
-                                contentDescription = "Theme toggle",
-                                tint = MaterialTheme.colorScheme.primary
-                            )
+                            IconButton(
+                                onClick = {viewModel.toggleDarkMode()},
+                                modifier = Modifier.padding(8.dp)
+                            ){
+                                Icon(
+                                    painterResource(
+                                        if(uiState.darkMode) Res.drawable.moon else Res.drawable.sun,
+                                    ),
+                                    contentDescription = "Theme toggle",
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                            }
                         }
+
                     },
                     navigationIcon = {
-                        IconButton(
-                            onClick = {resizeClicked = !resizeClicked},
-                            modifier = Modifier.padding(8.dp)
+                        TooltipBox(
+                            positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
+                            tooltip = {PlainTooltip { Text("Resize window") }},
+                            state = rememberTooltipState()
                         ){
-                            Icon(
-                                painterResource(if(resizeClicked) Res.drawable.minimize else Res.drawable.maximize),
-                                contentDescription = "Expand window",
-                                tint = MaterialTheme.colorScheme.primary
-                            )
+                            IconButton(
+                                onClick = {resizeClicked = !resizeClicked},
+                                modifier = Modifier.padding(8.dp)
+                            ){
+                                Icon(
+                                    painterResource(if(resizeClicked) Res.drawable.minimize else Res.drawable.maximize),
+                                    contentDescription = "Expand window",
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                            }
                         }
+
                     }
                 )
             }
