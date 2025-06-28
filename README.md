@@ -1,65 +1,85 @@
-# pwdgen
+# PwdGen - Super Simple Password Generator
 
-A desktop application built with Kotlin and Compose for Desktop.
+A secure, customizable desktop password generator built with Kotlin and Compose Desktop, featuring a beautiful Material 3 interface.
 
-[![Kotlin](https://img.shields.io/badge/Kotlin-2.1.20-blue.svg?logo=kotlin)](https://kotlinlang.org) [![Compose](https://img.shields.io/badge/Compose-1.8.0-blue.svg?logo=jetpack-compose)](https://www.jetbrains.com/lp/compose-multiplatform/)
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.1.20-blue.svg?logo=kotlin)](https://kotlinlang.org) [![Compose](https://img.shields.io/badge/Compose-1.8.0-blue.svg?logo=jetpack-compose)](https://www.jetbrains.com/lp/compose-multiplatform/) [![Version](https://img.shields.io/badge/Version-2.0.0-green.svg)](https://github.com/zahid4kh/pwdgen/releases)
 
-## Features
+## ✨ Features
 
-- Modern UI with Material 3 design
-- Dark mode support
-- Cross-platform (Windows, macOS, Linux)
-- Hot reload support for faster development
+- **Modern Material 3 UI** with dark/light theme support
+- **Customizable passwords** with length 7-75 characters
+- **Character set toggles** for uppercase, lowercase, numbers, and special characters
+- **Instant clipboard copy** with visual feedback
+- **Responsive interface** with resizable window modes
+- **Smooth animations** and interactive tooltips
+- **Complete offline operation** - no internet required
 
-## Development Setup
+## 🚀 Installation
+
+### Linux (Ubuntu/Debian)
+
+```bash
+# Add repository
+wget -qO- https://zahid4kh.github.io/my-apt-repo/KEY.gpg | sudo gpg --dearmor -o /usr/share/keyrings/zahid-archive-keyring.gpg
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/zahid-archive-keyring.gpg] https://zahid4kh.github.io/my-apt-repo stable main" | sudo tee /etc/apt/sources.list.d/zahid-apps.list
+
+# Install
+sudo apt update && sudo apt install pwdgen
+```
+
+### Windows
+
+Windows installers (.msi and .exe) coming soon!
+
+### Try Online
+
+Experience PwdGen in your browser: [https://pwdgene.vercel.app/generator](https://pwdgene.vercel.app/generator)
+
+## 🛠️ Development Setup
 
 ### Prerequisites
 
 - JDK 17 or later
-- Kotlin 2.1.20 or later
-- IntelliJ IDEA (recommended) or Android Studio
-
-### Make Gradle Wrapper Executable (Linux/macOS only)
-
-After cloning the repository, you need to make the Gradle wrapper executable:
-
-```bash
-chmod +x gradlew```
-
-**Note:** This step is not required on Windows as it uses `gradlew.bat`.
+- IntelliJ IDEA (recommended)
 
 ### Running the Application
 
-#### Standard Run
 ```bash
-./gradlew run```
+# Make gradlew executable (Linux/macOS)
+chmod +x gradlew
 
-#### Hot Reload (Recommended for Development)
+# Standard run
+./gradlew run
+
+# Hot reload for development
+./gradlew :runHot --mainClass PwdGen --auto
+```
+
+### Building Native Packages
+
 ```bash
-./gradlew :runHot --mainClass pwdgen --auto```
+# Build for current OS
+./gradlew packageDistributionForCurrentOS
 
-This enables automatic recompilation and hot swapping when you modify your code, making development much faster.
+# Platform-specific builds
+./gradlew packageDeb    # Linux
+./gradlew packageDmg    # macOS
+./gradlew packageMsi    # Windows
+./gradlew packageExe    # Windows
+```
 
-### Building a Native Distribution
+## 📱 Screenshots
 
-To build a native distribution for your platform:
+![screenshot1](/screenshot1.png)
 
-```bash
-./gradlew packageDistributionForCurrentOS```
+![screenshot1](/screenshot2.png)
 
-This will create a platform-specific installer in the `build/compose/binaries/main-release/{extension}/` directory.
+## 📄 License
 
-### Available Gradle Tasks
+This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details.
 
-- `./gradlew run` - Run the application
-- `./gradlew :runHot --mainClass pwdgen --auto` - Run with hot reload
-- `./gradlew packageDistributionForCurrentOS` - Build native distribution for current OS
-- `./gradlew packageDmg` - Build macOS DMG (macOS only)
-- `./gradlew packageMsi` - Build Windows MSI (Windows only)
-- `./gradlew packageExe` - Build Windows EXE (Windows only)
-- `./gradlew packageDeb` - Build Linux DEB (Linux only)
+## 🔗 Links
 
-
-## Generated with Compose for Desktop Wizard
-
-This project was generated using the [Compose for Desktop Wizard](https://github.com/zahid4kh/compose-for-desktop).
+- **Documentation**: [https://pwdgene.vercel.app/docs](https://pwdgene.vercel.app/docs)
+- **APT Repository**: [https://zahid4kh.github.io/my-apt-repo](https://zahid4kh.github.io/my-apt-repo)
+- **Issues**: [GitHub Issues](https://github.com/zahid4kh/pwdgen/issues)
