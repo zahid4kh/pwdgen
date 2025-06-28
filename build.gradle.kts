@@ -61,7 +61,7 @@ compose.desktop {
 
             linux{
                 shortcut = true
-                iconFile.set(project.file("icons/compose.png"))
+                iconFile.set(project.file("icons/linux.png"))
                 description = "Simple and minimalistic password generator"
             }
 
@@ -71,12 +71,12 @@ compose.desktop {
                 menu = true
                 vendor = "Zahid Khalilov"
                 upgradeUuid = "run the 'generateUpgradeUuid' task and paste the generated UUID here only once"
-                iconFile.set(project.file("icons/compose.ico"))
+                iconFile.set(project.file("icons/windows.ico"))
             }
 
             macOS{
                 dockName = "pwdgen"
-                iconFile.set(project.file("icons/compose.icns"))
+                iconFile.set(project.file("icons/macos.icns"))
             }
         }
     }
