@@ -6,29 +6,29 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.WindowPosition
+import androidx.compose.ui.window.WindowState
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
-import pwdgen.resources.Res
-import pwdgen.resources.maximize
-import pwdgen.resources.moon
-import pwdgen.resources.sun
+import pwdgen.resources.*
 import theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun App(
-    viewModel: MainScreen
+    viewModel: MainScreen,
+    windowState: WindowState
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val isResultNull = uiState.result != null
+    val gridState = rememberLazyGridState()
+    var resizeClicked by remember { mutableStateOf(false) }
 
     LaunchedEffect(uiState.isSpecialCharSelected){
         println("Special chars are selected: ${uiState.isSpecialCharSelected}")
@@ -45,13 +45,19 @@ fun App(
         println("Generated password will be of length: ${uiState.desiredLength}")
     }
 
-    val gridState = rememberLazyGridState()
-
     LaunchedEffect(uiState.result) {
         if (uiState.result != null) {
             delay(200)
             gridState.animateScrollToItem(gridState.layoutInfo.totalItemsCount - 1)
         }
+    }
+
+    if (resizeClicked){
+        windowState.size = windowState.size.copy(width = 820.dp, height = 600.dp)
+        windowState.position = WindowPosition.Aligned(Alignment.Center)
+    }else{
+        windowState.size = windowState.size.copy(width = 400.dp, height = 570.dp)
+        windowState.position = WindowPosition.Aligned(Alignment.Center)
     }
 
 
@@ -83,11 +89,11 @@ fun App(
                     },
                     navigationIcon = {
                         IconButton(
-                            onClick = {},
+                            onClick = {resizeClicked = !resizeClicked},
                             modifier = Modifier.padding(8.dp)
                         ){
                             Icon(
-                                painterResource(Res.drawable.maximize),
+                                painterResource(if(resizeClicked) Res.drawable.minimize else Res.drawable.maximize),
                                 contentDescription = "Expand window",
                                 tint = MaterialTheme.colorScheme.primary
                             )

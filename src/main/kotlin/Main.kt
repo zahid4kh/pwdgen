@@ -31,7 +31,8 @@ fun main() = application {
     ) {
         AppTheme {
             App(
-                viewModel = viewModel
+                viewModel = viewModel,
+                windowState = windowState
             )
         }
     }
