@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+clear
+
+./gradlew clean
+
+./gradlew build
+
+./gradlew packageDebWithWMClass
