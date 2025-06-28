@@ -1,34 +1,43 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { Copy, Check, Terminal, Package } from "lucide-react"
-import { useState } from "react"
-import { useToast } from "@/components/ui/use-toast"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
-import { oneDark, oneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism'
-import { useTheme } from "next-themes"
+import Link from "next/link";
+import { Copy, Check, Terminal, Package, Download } from "lucide-react";
+import { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import {
+  oneDark,
+  oneLight,
+} from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { useTheme } from "next-themes";
 
-function CodeBlock({ children, language = "bash" }: { children: string; language?: string }) {
-  const { toast } = useToast()
-  const [isCopied, setIsCopied] = useState(false)
-  const { theme } = useTheme()
-  const isDark = theme === "dark"
+function CodeBlock({
+  children,
+  language = "bash",
+}: {
+  children: string;
+  language?: string;
+}) {
+  const { toast } = useToast();
+  const [isCopied, setIsCopied] = useState(false);
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   const copyToClipboard = async () => {
-    await navigator.clipboard.writeText(children.trim())
-    setIsCopied(true)
+    await navigator.clipboard.writeText(children.trim());
+    setIsCopied(true);
     toast({
       title: "Copied!",
       description: "Code snippet copied to clipboard",
       duration: 2000,
-    })
-    
+    });
+
     setTimeout(() => {
-      setIsCopied(false)
-    }, 2000)
-  }
+      setIsCopied(false);
+    }, 2000);
+  };
 
   return (
     <div className="bg-zinc-100 dark:bg-zinc-800 p-4 rounded-md overflow-x-auto mb-6 relative group">
@@ -47,147 +56,252 @@ function CodeBlock({ children, language = "bash" }: { children: string; language
         language={language}
         style={isDark ? oneDark : oneLight}
         customStyle={{
-          borderRadius: '0.375rem',
+          borderRadius: "0.375rem",
           margin: 0,
-          fontSize: '0.875rem',
-          background: 'transparent',
-          padding: 0
+          fontSize: "0.875rem",
+          background: "transparent",
+          padding: 0,
         }}
         codeTagProps={{
           style: {
-            background: 'transparent'
-          }
+            background: "transparent",
+          },
         }}
       >
         {children}
       </SyntaxHighlighter>
     </div>
-  )
+  );
 }
 
 export default function Installation() {
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8 text-zinc-900 dark:text-zinc-100">Installation Guide</h1>
-        
-        <Tabs defaultValue="apt">
+        <h1 className="text-3xl font-bold mb-8 text-zinc-900 dark:text-zinc-100">
+          Installation Guide
+        </h1>
+
+        <Tabs defaultValue="linux">
           <TabsList className="mb-6">
-            <TabsTrigger value="apt" className="flex items-center gap-2">
+            <TabsTrigger value="linux" className="flex items-center gap-2">
               <Package className="h-4 w-4" />
-              APT Installation
+              Linux (APT)
+            </TabsTrigger>
+            <TabsTrigger value="windows" className="flex items-center gap-2">
+              <Download className="h-4 w-4" />
+              Windows
             </TabsTrigger>
             <TabsTrigger value="manual" className="flex items-center gap-2">
               <Terminal className="h-4 w-4" />
-              Manual Installation
+              Manual Build
             </TabsTrigger>
           </TabsList>
-          
-          <TabsContent value="apt" className="space-y-8">
+
+          <TabsContent value="linux" className="space-y-8">
             <Alert className="bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-900">
-              <AlertTitle className="text-green-800 dark:text-green-300">Recommended Method</AlertTitle>
+              <Package className="h-4 w-4" />
+              <AlertTitle className="text-green-800 dark:text-green-300">
+                Recommended Method
+              </AlertTitle>
               <AlertDescription className="text-green-700 dark:text-green-400">
-                This is the easiest way to install the GUI version of pwdgen on Debian-based Linux systems.
+                Easy installation on Ubuntu/Debian-based systems using our APT
+                repository.
               </AlertDescription>
             </Alert>
-            
+
             <section className="mb-10">
-              <h2 className="text-2xl font-semibold mb-4 text-zinc-900 dark:text-zinc-100">APT Repository Installation</h2>
+              <h2 className="text-2xl font-semibold mb-4 text-zinc-900 dark:text-zinc-100">
+                APT Repository Installation
+              </h2>
               <p className="mb-4 text-zinc-700 dark:text-zinc-300">
-                The desktop app can be installed directly using APT. Follow these steps:
+                Install PwdGen directly using APT package manager:
               </p>
 
-              <h3 className="text-xl font-medium mb-2 text-zinc-800 dark:text-zinc-200">1. Add the repository GPG key</h3>
-              <CodeBlock language="bash">{`wget -qO- https://zahid4kh.github.io/pwdgen/KEY.gpg | sudo gpg --dearmor -o /usr/share/keyrings/pwdgen-archive-keyring.gpg`}</CodeBlock>
+              <h3 className="text-xl font-medium mb-2 text-zinc-800 dark:text-zinc-200">
+                1. Add the repository GPG key
+              </h3>
+              <CodeBlock language="bash">{`wget -qO- https://zahid4kh.github.io/my-apt-repo/KEY.gpg | sudo gpg --dearmor -o /usr/share/keyrings/zahid-archive-keyring.gpg`}</CodeBlock>
 
-              <h3 className="text-xl font-medium mb-2 text-zinc-800 dark:text-zinc-200">2. Add the repository to your sources list</h3>
-              <CodeBlock language="bash">{`echo "deb [arch=amd64 signed-by=/usr/share/keyrings/pwdgen-archive-keyring.gpg] https://zahid4kh.github.io/pwdgen stable main" | sudo tee /etc/apt/sources.list.d/pwdgen.list`}</CodeBlock>
+              <h3 className="text-xl font-medium mb-2 text-zinc-800 dark:text-zinc-200">
+                2. Add the repository to your sources list
+              </h3>
+              <CodeBlock language="bash">{`echo "deb [arch=amd64 signed-by=/usr/share/keyrings/zahid-archive-keyring.gpg] https://zahid4kh.github.io/my-apt-repo stable main" | sudo tee /etc/apt/sources.list.d/zahid-apps.list`}</CodeBlock>
 
-              <h3 className="text-xl font-medium mb-2 text-zinc-800 dark:text-zinc-200">3. Update the package list and install PwdGen</h3>
+              <h3 className="text-xl font-medium mb-2 text-zinc-800 dark:text-zinc-200">
+                3. Update package list and install PwdGen
+              </h3>
               <CodeBlock language="bash">{`sudo apt update
 sudo apt install pwdgen`}</CodeBlock>
 
               <p className="mt-6 text-zinc-700 dark:text-zinc-300">
-                After installation, you can launch the app from your applications menu or by running <code className="bg-zinc-100 dark:bg-zinc-800 px-1 py-0.5 rounded">pwdgen</code> in your terminal.
-              </p>
-            </section>
-            
-            <section className="mb-10">
-              <h2 className="text-2xl font-semibold mb-4 text-zinc-900 dark:text-zinc-100">Uninstalling</h2>
-              <p className="mb-4 text-zinc-700 dark:text-zinc-300">
-                To uninstall the PwdGen application:
-              </p>
-              
-              <CodeBlock>{`# Remove the package
-sudo apt remove pwdgen
-
-# Optionally, remove the repository and key
-sudo rm /etc/apt/sources.list.d/pwdgen.list
-sudo rm /usr/share/keyrings/pwdgen-archive-keyring.gpg
-sudo apt update`}</CodeBlock>
-            </section>
-          </TabsContent>
-          
-          <TabsContent value="manual" className="space-y-8">
-            <section className="mb-10">
-              <h2 className="text-2xl font-semibold mb-4 text-zinc-900 dark:text-zinc-100">Manual Script Installation</h2>
-              <p className="mb-4 text-zinc-700 dark:text-zinc-300">
-                If you prefer to use the CLI version directly, follow these steps:
+                After installation, launch PwdGen from your applications menu or
+                run{" "}
+                <code className="bg-zinc-100 dark:bg-zinc-800 px-1 py-0.5 rounded">
+                  pwdgen
+                </code>{" "}
+                in your terminal.
               </p>
 
-              <h3 className="text-xl font-medium mb-2 text-zinc-800 dark:text-zinc-200">1. Clone the repository</h3>
-              <CodeBlock>{`git clone https://github.com/zahid4kh/pwdgen.git
-cd pwdgen`}</CodeBlock>
-
-              <h3 className="text-xl font-medium mb-2 text-zinc-800 dark:text-zinc-200">2. Make the script executable</h3>
-              <CodeBlock>{`chmod +x pwdgen`}</CodeBlock>
-
-              <h3 className="text-xl font-medium mb-2 text-zinc-800 dark:text-zinc-200">3. Install to your local bin directory</h3>
-              <p className="mb-2 text-zinc-700 dark:text-zinc-300">
-                To run the script from anywhere in your terminal:
-              </p>
-              <CodeBlock>{`# Create the local bin directory if it doesn't exist
-mkdir -p ~/.local/bin
-
-# Copy the script to your local bin directory
-cp pwdgen ~/.local/bin/
-
-# Make sure ~/.local/bin is in your PATH
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
-source ~/.bashrc`}</CodeBlock>
-
-              <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded-md p-4 mt-4">
-                <p className="text-blue-700 dark:text-blue-400">
-                  <strong>Note:</strong> Using <code className="bg-zinc-100 dark:bg-zinc-800 px-1 py-0.5 rounded">~/.local/bin</code> is the recommended way to install user-specific scripts without requiring root privileges.
+              <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded-md p-4 mt-6">
+                <h4 className="font-semibold text-blue-800 dark:text-blue-300 mb-2">
+                  Additional Applications Available
+                </h4>
+                <p className="text-blue-700 dark:text-blue-400 text-sm">
+                  The repository also includes other applications:{" "}
+                  <code>kached</code> (code snippet manager),
+                  <code>markdownify</code> (markdown editor), and{" "}
+                  <code>sumpdf</code> (PDF tools).
                 </p>
               </div>
             </section>
-            
+
             <section className="mb-10">
-              <h2 className="text-2xl font-semibold mb-4 text-zinc-900 dark:text-zinc-100">Clipboard Functionality</h2>
+              <h2 className="text-2xl font-semibold mb-4 text-zinc-900 dark:text-zinc-100">
+                Uninstalling
+              </h2>
               <p className="mb-4 text-zinc-700 dark:text-zinc-300">
-                For clipboard functionality, install one of these utilities:
+                To uninstall PwdGen:
               </p>
 
-              <CodeBlock>{`# For Linux X11
-sudo apt install xclip
+              <CodeBlock>{`# Remove the application
+sudo apt remove pwdgen
 
-# For Linux Wayland
-sudo apt install wl-clipboard`}</CodeBlock>
-
-              <p className="text-zinc-700 dark:text-zinc-300">
-                On macOS, the <code className="bg-zinc-100 dark:bg-zinc-800 px-1 py-0.5 rounded">pbcopy</code> utility is already installed by default.
-              </p>
+# Optionally, remove the entire repository
+sudo rm /etc/apt/sources.list.d/zahid-apps.list
+sudo rm /usr/share/keyrings/zahid-archive-keyring.gpg
+sudo apt update`}</CodeBlock>
             </section>
-            
+          </TabsContent>
+
+          <TabsContent value="windows" className="space-y-8">
+            <Alert className="bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-900">
+              <Download className="h-4 w-4" />
+              <AlertTitle className="text-blue-800 dark:text-blue-300">
+                Windows Support
+              </AlertTitle>
+              <AlertDescription className="text-blue-700 dark:text-blue-400">
+                Native Windows installers are currently in development.
+              </AlertDescription>
+            </Alert>
+
             <section className="mb-10">
-              <h2 className="text-2xl font-semibold mb-4 text-zinc-900 dark:text-zinc-100">Uninstalling</h2>
+              <h2 className="text-2xl font-semibold mb-4 text-zinc-900 dark:text-zinc-100">
+                Windows Installation
+              </h2>
+
+              <div className="bg-yellow-50 dark:bg-yellow-950/30 border border-yellow-200 dark:border-yellow-900 rounded-md p-6 mb-6">
+                <h3 className="text-lg font-semibold text-yellow-800 dark:text-yellow-300 mb-2">
+                  🚧 Coming Soon
+                </h3>
+                <p className="text-yellow-700 dark:text-yellow-400 mb-4">
+                  Windows installers (.msi and .exe) are currently being
+                  prepared and will be available soon.
+                </p>
+                <ul className="text-yellow-700 dark:text-yellow-400 space-y-2">
+                  <li>
+                    <strong>MSI Installer:</strong> Traditional Windows
+                    installer package
+                  </li>
+                  <li>
+                    <strong>EXE Installer:</strong> Portable executable
+                    installer
+                  </li>
+                  <li>
+                    <strong>Expected Release:</strong> Within the next few weeks
+                  </li>
+                </ul>
+              </div>
+
+              <h3 className="text-xl font-medium mb-2 text-zinc-800 dark:text-zinc-200">
+                Current Options
+              </h3>
               <p className="mb-4 text-zinc-700 dark:text-zinc-300">
-                To uninstall the script:
+                While we prepare the Windows installers, you can:
               </p>
-              
-              <CodeBlock>{`# Remove the script from your local bin directory
-rm ~/.local/bin/pwdgen`}</CodeBlock>
+
+              <ol className="list-decimal list-inside space-y-2 text-zinc-700 dark:text-zinc-300 mb-6">
+                <li>
+                  Build from source using the manual build instructions below
+                </li>
+                <li>
+                  Use WSL (Windows Subsystem for Linux) with the Linux
+                  installation method
+                </li>
+                <li>Wait for the official Windows installers (recommended)</li>
+              </ol>
+
+              <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded-md p-4">
+                <p className="text-blue-700 dark:text-blue-400">
+                  <strong>Stay Updated:</strong> Watch the{" "}
+                  <a
+                    href="https://github.com/zahid4kh/pwdgen"
+                    className="underline"
+                  >
+                    GitHub repository
+                  </a>
+                  for Windows installer release announcements.
+                </p>
+              </div>
+            </section>
+          </TabsContent>
+
+          <TabsContent value="manual" className="space-y-8">
+            <section className="mb-10">
+              <h2 className="text-2xl font-semibold mb-4 text-zinc-900 dark:text-zinc-100">
+                Manual Build from Source
+              </h2>
+              <p className="mb-4 text-zinc-700 dark:text-zinc-300">
+                Build PwdGen from source code for development or if you prefer
+                manual installation.
+              </p>
+
+              <h3 className="text-xl font-medium mb-2 text-zinc-800 dark:text-zinc-200">
+                Prerequisites
+              </h3>
+              <ul className="list-disc list-inside space-y-1 text-zinc-700 dark:text-zinc-300 mb-4">
+                <li>JDK 17 or later</li>
+                <li>Git</li>
+              </ul>
+
+              <h3 className="text-xl font-medium mb-2 text-zinc-800 dark:text-zinc-200">
+                1. Clone the repository
+              </h3>
+              <CodeBlock>{`git clone https://github.com/zahid4kh/pwdgen.git
+cd pwdgen`}</CodeBlock>
+
+              <h3 className="text-xl font-medium mb-2 text-zinc-800 dark:text-zinc-200">
+                2. Make Gradle wrapper executable (Linux/macOS)
+              </h3>
+              <CodeBlock>{`chmod +x gradlew`}</CodeBlock>
+
+              <h3 className="text-xl font-medium mb-2 text-zinc-800 dark:text-zinc-200">
+                3. Run the application
+              </h3>
+              <CodeBlock>{`# Standard run
+./gradlew run
+
+# With hot reload for development
+./gradlew :runHot --mainClass PwdGen --auto`}</CodeBlock>
+
+              <h3 className="text-xl font-medium mb-2 text-zinc-800 dark:text-zinc-200">
+                4. Build native distribution (optional)
+              </h3>
+              <CodeBlock>{`# Build for current OS
+./gradlew packageDistributionForCurrentOS
+
+# Platform-specific builds
+./gradlew packageDmg    # macOS
+./gradlew packageMsi    # Windows  
+./gradlew packageDeb    # Linux
+./gradlew packageExe    # Windows`}</CodeBlock>
+
+              <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded-md p-4 mt-4">
+                <p className="text-blue-700 dark:text-blue-400">
+                  <strong>Note:</strong> Built distributions will be available
+                  in <code>build/compose/binaries/</code>
+                </p>
+              </div>
             </section>
           </TabsContent>
         </Tabs>
@@ -208,5 +322,5 @@ rm ~/.local/bin/pwdgen`}</CodeBlock>
         </div>
       </div>
     </div>
-  )
+  );
 }
