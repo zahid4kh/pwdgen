@@ -10,7 +10,7 @@ plugins {
     alias(libs.plugins.hotReload)
 }
 
-val appPackageVersion = "1.0.0"
+val appPackageVersion = "2.0.0"
 group = "pwdgen"
 version = appPackageVersion
 
@@ -40,9 +40,9 @@ compose.desktop {
     application {
         /*
         must match the annotation in Main.kt
-        @file:JvmName("pwdgen").
+        @file:JvmName("PwdGen").
          */
-        mainClass = "pwdgen"
+        mainClass = "PwdGen"
 
         nativeDistributions {
 
@@ -109,8 +109,8 @@ compose.resources{
 val workDir = file("deb-temp")
 val packageName = "pwdgen"
 val desktopRelativePath = "opt/$packageName/lib/$packageName-$packageName.desktop"
-val appDisplayName = "pwdgen"
-val mainClass = "pwdgen"
+val appDisplayName = "PwdGen"
+val mainClass = "PwdGen"
 val maintainer = "Zahid Khalilov <halilzahid@gmail.com>"
 val controlDescription = "Simple and minimalistic password generator"
 

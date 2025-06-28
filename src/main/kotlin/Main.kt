@@ -1,4 +1,4 @@
-@file:JvmName("pwdgen")
+@file:JvmName("PwdGen")
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
@@ -6,8 +6,10 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import org.jetbrains.compose.resources.painterResource
 import org.koin.core.context.startKoin
 import org.koin.java.KoinJavaComponent.getKoin
+import pwdgen.resources.*
 import theme.AppTheme
 
 fun main() = application {
@@ -25,9 +27,9 @@ fun main() = application {
         onCloseRequest = ::exitApplication,
         state = windowState,
         alwaysOnTop = true,
-        title = "pwdgen",
+        title = "PwdGen",
         resizable = false,
-        icon = null
+        icon = painterResource(Res.drawable.appicon)
     ) {
         AppTheme {
             App(
