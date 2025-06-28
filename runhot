@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -e
+
+clear
+echo "Starting the cleaning..."
+./gradlew clean
+sleep 0.5
+
+echo " "
+echo "Done cleaning project"
+
+echo "Starting to build..."
+echo " "
+./gradlew build
+echo "Done building"
+sleep 0.5
+
+echo " "
+echo "Running with hot-reload"
+echo " "
+./gradlew :runHot --mainClass pwdgen --auto
