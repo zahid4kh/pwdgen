@@ -15,12 +15,14 @@ import androidx.compose.ui.unit.dp
 fun ToggleItem(
     text: String,
     onCheckedChange: (Boolean) -> Unit,
-    isChecked: Boolean = true
+    isChecked: Boolean = true,
+    modifier: Modifier
 ){
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 4.dp)
+            .padding(horizontal = 16.dp)
             .shadow(2.dp, RoundedCornerShape(12.dp)),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
