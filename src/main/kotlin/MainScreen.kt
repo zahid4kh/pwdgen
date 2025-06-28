@@ -1,4 +1,3 @@
-
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -44,18 +43,32 @@ class MainScreen {
         _uiState.update { it.copy(currentListOfChars = newCharList) }
     }
 
+    // old approach
+//    fun generatePassword() {
+//        val chars = _uiState.value.currentListOfChars
+//        val desiredLength = _uiState.value.desiredLength
+//        val shuffled = chars.shuffled()
+//
+//        val takeSpecificLength = shuffled.take(desiredLength)
+//        val iterator = takeSpecificLength.listIterator()
+//
+//        var finalPassword = ""
+//        while(iterator.hasNext()){
+//            finalPassword += iterator.next()
+//        }
+//
+//        _uiState.update {
+//            it.copy(result = finalPassword)
+//        }
+//
+//        println("Generated password is: $finalPassword with length: ${finalPassword.length}")
+//    }
+
     fun generatePassword() {
         val chars = _uiState.value.currentListOfChars
         val desiredLength = _uiState.value.desiredLength
-        val shuffled = chars.shuffled()
 
-        val takeSpecificLength = shuffled.take(desiredLength)
-        val iterator = takeSpecificLength.listIterator()
-
-        var finalPassword = ""
-        while(iterator.hasNext()){
-            finalPassword += iterator.next()
-        }
+        val finalPassword = chars.shuffled().take(desiredLength).joinToString("")
 
         _uiState.update {
             it.copy(result = finalPassword)
