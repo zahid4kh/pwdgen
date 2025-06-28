@@ -1,21 +1,23 @@
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import pwdgen.resources.Res
+import pwdgen.resources.maximize
 import pwdgen.resources.moon
 import pwdgen.resources.sun
 import theme.AppTheme
@@ -43,15 +45,15 @@ fun App(
         println("Generated password will be of length: ${uiState.desiredLength}")
     }
 
-    val scrollState = rememberScrollState()
+    val gridState = rememberLazyGridState()
 
-    LaunchedEffect(uiState.result){
-        if (uiState.result != null){
+    LaunchedEffect(uiState.result) {
+        if (uiState.result != null) {
             delay(200)
-            scrollState.animateScrollTo(scrollState.maxValue)
+            gridState.animateScrollToItem(gridState.layoutInfo.totalItemsCount - 1)
         }
-        println("Current scroll state: ${scrollState.value}")
     }
+
 
     AppTheme(darkTheme = uiState.darkMode) {
         Scaffold(
@@ -74,93 +76,104 @@ fun App(
                                 painterResource(
                                     if(uiState.darkMode) Res.drawable.moon else Res.drawable.sun,
                                 ),
-                                contentDescription = "Theme toggle"
+                                contentDescription = "Theme toggle",
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    },
+                    navigationIcon = {
+                        IconButton(
+                            onClick = {},
+                            modifier = Modifier.padding(8.dp)
+                        ){
+                            Icon(
+                                painterResource(Res.drawable.maximize),
+                                contentDescription = "Expand window",
+                                tint = MaterialTheme.colorScheme.primary
                             )
                         }
                     }
                 )
             }
         ){paddingValues ->
-            Column(
+            LazyVerticalGrid(
+                state = gridState,
+                columns = GridCells.Adaptive(400.dp),
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
-                    .padding(horizontal = 16.dp)
-                    .verticalScroll(scrollState),
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .animateContentSize(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ){
-                AddVerticalSpace(8.dp)
+                item(span = { GridItemSpan(maxLineSpan)}){
+                    AddVerticalSpace(8.dp)
+                }
 
-                ToggleSection(
-                    uiState = uiState,
-                    viewModel = viewModel
-                )
+                item {
+                    ToggleItem(
+                        text = "Include Uppercase (A-Z)",
+                        isChecked = uiState.isUppercaseSelected,
+                        onCheckedChange = { viewModel.toggleUppercase() },
+                        modifier = Modifier.animateItem(placementSpec = spring())
+                    )
+                }
+                item {
+                    ToggleItem(
+                        text = "Include Lowercase (a-z)",
+                        isChecked = uiState.isLowercaseSelected,
+                        onCheckedChange = { viewModel.toggleLowercase() },
+                        modifier = Modifier.animateItem(placementSpec = spring())
+                    )
+                }
+                item {
+                    ToggleItem(
+                        text = "Include Numbers (0-9)",
+                        isChecked = uiState.isNumbersSelected,
+                        onCheckedChange = { viewModel.toggleNumbers() },
+                        modifier = Modifier.animateItem(placementSpec = spring())
+                    )
+                }
+                item {
+                    ToggleItem(
+                        text = "Include Special (!@#$...)",
+                        isChecked = uiState.isSpecialCharSelected,
+                        onCheckedChange = { viewModel.toggleSpecialChars() },
+                        modifier = Modifier.animateItem(placementSpec = spring())
+                    )
+                }
 
-                AddVerticalSpace(16.dp)
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    AddVerticalSpace(16.dp)
+                }
 
-                PwdLengthSection(
-                    uiState = uiState,
-                    viewModel = viewModel
-                )
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    PwdLengthSection(
+                        uiState = uiState,
+                        viewModel = viewModel
+                    )
+                }
 
-                AddVerticalSpace(24.dp)
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    AddVerticalSpace(24.dp)
+                }
 
-                GenerateButtonSection(
-                    viewModel = viewModel,
-                    uiState = uiState,
-                    isResultNull = isResultNull
-                )
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    GenerateButtonSection(
+                        viewModel = viewModel,
+                        uiState = uiState,
+                        isResultNull = isResultNull
+                    )
+                }
 
-                AddVerticalSpace(15.dp)
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    AddVerticalSpace(15.dp)
+                }
             }
         }
     }
 }
 
-
-@Composable
-fun ToggleItem(
-    text: String,
-    onCheckedChange: (Boolean) -> Unit,
-    isChecked: Boolean = true
-){
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 4.dp)
-            .shadow(2.dp, RoundedCornerShape(12.dp)),
-        shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = if (isChecked)
-                MaterialTheme.colorScheme.tertiaryContainer
-            else
-                MaterialTheme.colorScheme.surfaceVariant
-        )
-    ){
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ){
-            Text(
-                text = text,
-                style = MaterialTheme.typography.bodyLarge,
-                fontWeight = FontWeight.Medium,
-                color = if (isChecked)
-                    MaterialTheme.colorScheme.onTertiaryContainer
-                else
-                    MaterialTheme.colorScheme.onSurfaceVariant
-            )
-
-            Switch(
-                checked = isChecked,
-                onCheckedChange = { onCheckedChange(it) }
-            )
-        }
-    }
-}
 
 @Composable
 fun AddVerticalSpace(space: Dp){
